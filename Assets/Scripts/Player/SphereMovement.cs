@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class SphereMovement : MonoBehaviour
 {
     CharacterMovement characterMovement;
 
     // Singletone pattern
-    private static PlayerMovement instance;
-    public static PlayerMovement Instance { get { return instance; } }
+    private static SphereMovement instance;
+    public static SphereMovement Instance { get { return instance; } }
     private void Awake()
     {
         instance = this;

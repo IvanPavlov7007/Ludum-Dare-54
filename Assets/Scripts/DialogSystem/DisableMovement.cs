@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class DisableMovement : MonoBehaviour
 {
-    PlayerMovement movement;
+    SphereMovement movement;
     void Start()
     {
-        movement = PlayerMovement.Instance;
+        movement = SphereMovement.Instance;
     }
 
     public void Disable(float time)

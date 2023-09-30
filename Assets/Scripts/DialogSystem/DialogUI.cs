@@ -12,7 +12,7 @@ public class DialogUI : MonoBehaviour
     [SerializeField]
     GameObject dialogElements;
 
-    PlayerMovement playerMovement;
+    SphereMovement playerMovement;
     [SerializeField]
     float maxDialogDistance = 2f;
 
@@ -39,7 +39,7 @@ public class DialogUI : MonoBehaviour
     {
         layouts = GetComponentInChildren<StateMachine>();
         audioSource = Camera.main.GetComponent<AudioSource>();
-        playerMovement = PlayerMovement.Instance;
+        playerMovement = SphereMovement.Instance;
     }
 
 
