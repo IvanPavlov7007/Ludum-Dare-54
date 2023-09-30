@@ -696,7 +696,7 @@ PlayerSettings:
   webGLPowerPreference: 2
   scriptingDefineSymbols:
     Standalone: STARTER_ASSETS_PACKAGES_CHECKED
-    WebGL: STARTER_ASSETS_PACKAGES_CHECKED
+    WebGL: STARTER_ASSETS_PACKAGES_CHECKED;PMS_URP;PMS_CINEMACHINE;PMS_CINE_MACHINE_2_6_OR_NEWER;PMS_CINE_MACHINE_2_6_1_OR_NEWER;PMS_CINE_MACHINE_2_8_OR_NEWER
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

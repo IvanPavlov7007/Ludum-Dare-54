@@ -17,9 +17,17 @@ public class GameManager : MonoBehaviour
             Destroy(this);
     }
 
+    public bool timeStopped { get; private set; }
     private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            timeStopped = !timeStopped;
+            if (timeStopped)
+                Time.timeScale = 0f;
+            else
+                Time.timeScale = 1f;
+        }
     }
 
 

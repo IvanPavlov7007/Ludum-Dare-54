@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface Punchable
 {
-    public void Punch();
+    public void Punch(Vector3 position, Vector3 direction, float impulse);
 }

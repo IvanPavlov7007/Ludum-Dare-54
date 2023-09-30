@@ -29,9 +29,11 @@ public class Timer
 
 public class PunchController : MonoBehaviour
 {
+    public float impulse = 1000f;
     public float punchRadius = 0.5f;
     public float punchLength = 1f;
     public float cooldownTime = 0.5f;
+    public float punchDuration = 0.2f;
     public LayerMask layerMask;
     public GameObject punchParticlesPrefab;
 
@@ -49,17 +51,20 @@ public class PunchController : MonoBehaviour
 
     private void Awake()
     {
-        timer = new Timer(cooldownTime, true);
+        cooldownTimer = new Timer(cooldownTime, true);
+        punchTimer = new Timer(punchDuration);
     }
 
-    Timer timer;
+    Timer cooldownTimer;
+    Timer punchTimer;
+    bool punched;
     public void OnPunch(InputValue value)
     {
         if (value.isPressed)
         {
-            if (timer.TimeOut)
+            if (cooldownTimer.TimeOut)
             {
-                timer.Reset();
+                cooldownTimer.Reset();
                 punch();
             }
         }
@@ -67,7 +72,7 @@ public class PunchController : MonoBehaviour
 
     private void Update()
     {
-        timer.UpdateTime(Time.deltaTime);
+        cooldownTimer.UpdateTime(Time.deltaTime);
     }
 
     public void punch()
@@ -81,13 +86,16 @@ public class PunchController : MonoBehaviour
         if(Physics.SphereCast(postition, punchRadius,direction,out hit, punchLength,layerMask))
         {
             var particles = Instantiate(punchParticlesPrefab, hit.point, Quaternion.identity);
+            particles.transform.forward = hit.normal;
             punchSoundSource.transform.position = hit.point;
             punchSoundSource.PlayOneShot(hitClip);
             //particles.transform.localScale *= Mathf.Max(hit.distance / punchLength, 0.2f);
+            float strength_multiplier = Mathf.Max((punchLength - hit.distance)/ punchLength, 0.1f);
+
             Destroy(particles, 1f);
             Punchable obj = hit.collider.GetComponentInParent<Punchable>();
             if(obj != null)
-                obj.Punch();
+                obj.Punch(hit.point, direction.normalized, impulse * strength_multiplier);
         }
     }
 }

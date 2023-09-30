@@ -12,9 +12,13 @@ public class Door : MonoBehaviour, Punchable
         aud = GetComponentInChildren<AudioSource>();
     }
 
-    public void Punch()
+    bool played;
+    public void Punch(Vector3 position, Vector3 direction, float impulse)
     {
+        if (played)
+            return;
+        played = true;
         aud.clip = (meme);
-        aud.Play();
+        aud.PlayDelayed(2f);
     }
 }
