@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 57ce57135b68a694f91b4212386d96db
+guid: 589e2e1715d0e34449cdb619a22306cd
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Door
-    second: {fileID: 2100000, guid: 0219ed16e55e699448c937ebeff54132, type: 2}
+      name: Concrete
+    second: {fileID: 2100000, guid: a9cff4ae7918b94418485c885b93a673, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
