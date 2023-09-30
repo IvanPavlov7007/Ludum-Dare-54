@@ -29,13 +29,18 @@ public class Timer
 
 public class PunchController : MonoBehaviour
 {
-    public float kickRadius = 0.5f;
-    public float kickLength = 1f;
+    public float punchRadius = 0.5f;
+    public float punchLength = 1f;
     public float cooldownTime = 0.5f;
     public LayerMask layerMask;
+    public GameObject punchParticlesPrefab;
 
     Camera cam;
     ArmsController armsController;
+    [SerializeField]
+    AudioSource punchSoundSource;
+
+    public AudioClip hitClip;
     private void Start()
     {
         cam = GetComponentInChildren<Camera>();
@@ -73,8 +78,13 @@ public class PunchController : MonoBehaviour
         Vector3 direction = cam.transform.forward;
         Vector3 postition = cam.transform.position;
         RaycastHit hit;
-        if(Physics.SphereCast(postition, kickRadius,direction,out hit, kickLength,layerMask))
+        if(Physics.SphereCast(postition, punchRadius,direction,out hit, punchLength,layerMask))
         {
+            var particles = Instantiate(punchParticlesPrefab, hit.point, Quaternion.identity);
+            punchSoundSource.transform.position = hit.point;
+            punchSoundSource.PlayOneShot(hitClip);
+            //particles.transform.localScale *= Mathf.Max(hit.distance / punchLength, 0.2f);
+            Destroy(particles, 1f);
             Punchable obj = hit.collider.GetComponentInParent<Punchable>();
             if(obj != null)
                 obj.Punch();

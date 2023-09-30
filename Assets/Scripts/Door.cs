@@ -14,6 +14,7 @@ public class Door : MonoBehaviour, Punchable
 
     public void Punch()
     {
-        aud.PlayOneShot(meme);
+        aud.clip = (meme);
+        aud.Play();
     }
 }
