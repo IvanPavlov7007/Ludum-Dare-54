@@ -42,6 +42,7 @@ public class GameManager : Singleton<GameManager>
 
     void Update()
     {
+        _p = gameProgress;
         if (Input.GetKeyDown(KeyCode.R) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);

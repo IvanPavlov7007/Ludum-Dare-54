@@ -4635,16 +4635,16 @@ MonoBehaviour:
   _dontDestroyOnLoad: 0
   earlyGame:
     minInitStateTime: 5
-    maxInitStateTime: 120
+    maxInitStateTime: 100
     walkTime: 6.5
-    enteringProbability: 0.5
+    enteringProbability: 0.68
     doorOpenTime: 3
     stayTime: 6
   lateGame:
     minInitStateTime: 2
     maxInitStateTime: 4
     walkTime: 6.5
-    enteringProbability: 0.7
+    enteringProbability: 1
     doorOpenTime: 3
     stayTime: 6
   currentBalancing:

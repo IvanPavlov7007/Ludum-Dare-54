@@ -77,7 +77,7 @@ public class PunchController : MonoBehaviour
 
     public void punch()
     {
-        Debug.Log("Punch");
+        //Debug.Log("Punch");
         armsController.Punch();
 
         Vector3 direction = cam.transform.forward;

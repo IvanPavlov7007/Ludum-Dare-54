@@ -9,7 +9,7 @@ public class Hole : MonoBehaviour, Punchable
     TextMeshPro textMesh;
     Health _health;
     public Health health { get { if (_health == null) _health = GetComponent<Health>(); return _health; } }
-    public float progress { get { return (float)health.amount / health.maxAmount; } }
+    public float progress { get { return 1f - (float)health.amount / health.maxAmount; } }
 
     public int hitDamage = 1;
 
