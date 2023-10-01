@@ -1,18 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class Hole : MonoBehaviour
+[RequireComponent(typeof(Health))]
+public class Hole : MonoBehaviour, Punchable
 {
-    // Start is called before the first frame update
-    void Start()
+    TextMeshPro textMesh;
+    public Health health { get; private set; }
+    public int hitDamage = 1;
+    public void Punch(Vector3 position, Vector3 direction, float impulse)
     {
-        
+        health.Hit(hitDamage);
     }
 
-    // Update is called once per frame
+    void Start()
+    {
+        health = GetComponent<Health>();
+        textMesh = GetComponentInChildren<TextMeshPro>();
+    }
+
     void Update()
     {
-        
+        if (textMesh != null)
+            textMesh.text = health.amount.ToString();
     }
 }

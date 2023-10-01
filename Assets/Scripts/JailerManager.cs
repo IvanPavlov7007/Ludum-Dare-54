@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pixelplacement;
 
-public class JailerManager : MonoBehaviourSingleton<JailerManager>
+public class JailerManager : Singleton<JailerManager>
 {
     GameManager gm;
 
+    #region properties
     [Header("Initiation state")]
     public float minInitStateTime, maxInitStateTime;
     [Header("Walking state")]
@@ -22,7 +23,7 @@ public class JailerManager : MonoBehaviourSingleton<JailerManager>
     public float stayTime;
     [Header("Interactions")]
     public string DialogWhenCatched;
-
+    #endregion
 
 
     private void Awake()
@@ -31,6 +32,7 @@ public class JailerManager : MonoBehaviourSingleton<JailerManager>
         footstepsState = new FootstepsState();
         openingClosingDoorState = new OpeningClosingDoorState();
         stayingInRoomState = new StayingInRoomState();
+        punishmentState = new PunishmentState();
 
         setState(initiationState);
     }
@@ -42,17 +44,19 @@ public class JailerManager : MonoBehaviourSingleton<JailerManager>
     }
 
     JailState currentState;
-    InitiationState initiationState;
-    FootstepsState footstepsState;
-    OpeningClosingDoorState openingClosingDoorState;
-    StayingInRoomState stayingInRoomState;
-
     private void setState(JailState state)
     {
         Debug.Log(state);
         currentState = state;
         currentState.SetupState(this);
     }
+
+    #region states
+    InitiationState initiationState;
+    FootstepsState footstepsState;
+    OpeningClosingDoorState openingClosingDoorState;
+    StayingInRoomState stayingInRoomState;
+    PunishmentState punishmentState;
 
     abstract class JailState
     {
@@ -127,7 +131,6 @@ public class JailerManager : MonoBehaviourSingleton<JailerManager>
         }
     }
 
-
     class OpeningClosingDoorState : JailState
     {
         Timer timer;
@@ -168,7 +171,14 @@ public class JailerManager : MonoBehaviourSingleton<JailerManager>
 
         public override void UpdateState(JailerManager context)
         {
-            //TODO Check loop here <--------------------------------------------------------------------
+            Bed bed = GameManager.Instance.bed;
+            Hole hole = GameManager.Instance.hole;
+
+            if( bed.isOpen && hole.health.amount < hole.health.maxAmount)
+            {
+                context.setState(context.punishmentState);
+                return;
+            }
 
             timer.UpdateTime(Time.deltaTime);
             if(timer.TimeOut)
@@ -180,6 +190,23 @@ public class JailerManager : MonoBehaviourSingleton<JailerManager>
         }
     }
 
+    class PunishmentState : JailState
+    {
+
+        public override void SetupState(JailerManager context)
+        {
+            //You lost!
+            GameManager.Instance.Lose();
+        }
+
+        public override void UpdateState(JailerManager context)
+        {
+            //put it to the GameManager
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
+
+    #endregion
 
     void Update()
     {
