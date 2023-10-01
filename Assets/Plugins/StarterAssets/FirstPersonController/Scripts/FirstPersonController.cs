@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -83,6 +84,14 @@ namespace StarterAssets
 				#else
 				return false;
 				#endif
+			}
+		}
+
+		public bool IsWalking
+		{
+			get
+			{
+				return _input.move.magnitude >= _threshold && Grounded;
 			}
 		}
 
