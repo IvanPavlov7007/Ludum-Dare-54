@@ -2,49 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Pixelplacement;
+using UnityEngine.SceneManagement;
 /// <summary>
 /// Singleton, input for the pause 
 /// </summary>
-public class GameManager : MonoBehaviourSingleton<GameManager>
+public class GameManager : Singleton<GameManager>
 {
     public Door door;
     public Bed bed;
     public Jailer jailer;
     public Hole hole;
 
-    public bool timeStopped { get; private set; }
-    private void Update()
+    public GameObject winScreen, loseScreen;
+    bool paused = false;
+    bool gameOver = false;
+
+    public void Win()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        gameOver = true;
+        //winScreen.SetActive(true);
+        //Time.timeScale = 0f;
+    }
+
+    public void Lose()
+    {
+        Debug.Log("I've seen your hole, You lost!");
+        gameOver = true;
+        //loseScreen.SetActive(true);
+        //Time.timeScale = 0f;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
         {
-            timeStopped = !timeStopped;
-            if (timeStopped)
-                Time.timeScale = 0f;
-            else
-                Time.timeScale = 1f;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Time.timeScale = 1f;
         }
-    }
 
-
-    // ToDo: add Properties AND Events
-    public void StopTime()
-    {
-
-    }
-
-    public void ContinueTime()
-    {
-
-    }
-
-    public void StopInputs()
-    {
-
-    }
-
-    public void ContinueInputs()
-    {
-
+        if (Input.GetKeyDown(KeyCode.Escape) && !gameOver)
+        {
+            paused = !paused;
+            Time.timeScale = paused ? 0f : 1f;
+        }
     }
 
 }
