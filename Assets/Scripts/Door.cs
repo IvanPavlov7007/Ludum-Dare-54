@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Pixelplacement;
 public class Door : MonoBehaviour, Punchable
 {
+    public float rotationDuration = 0.2f;
     public AudioClip meme;
+    public AudioClip openSound;
     AudioSource aud;
 
     private void Start()
@@ -20,5 +22,17 @@ public class Door : MonoBehaviour, Punchable
         played = true;
         aud.clip = (meme);
         aud.PlayDelayed(2f);
+    }
+
+
+    public void Open()
+    {
+        //Tween.LocalRotation(transform, Quaternion.Euler(0f, 90f, 0f), rotationDuration);
+        aud.PlayOneShot(openSound);
+    }
+
+    public void Close()
+    {
+        aud.PlayOneShot(openSound);
     }
 }

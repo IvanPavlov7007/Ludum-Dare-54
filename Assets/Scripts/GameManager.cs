@@ -1,21 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Pixelplacement;
 /// <summary>
 /// Singleton, input for the pause 
 /// </summary>
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourSingleton<GameManager>
 {
-    public static GameManager instance = null;
-
-    void Awake()
-    {
-        if (instance == null)
-            instance = this;
-        else
-            Destroy(this);
-    }
+    public Door door;
+    public Bed bed;
+    public Jailer jailer;
+    public Hole hole;
 
     public bool timeStopped { get; private set; }
     private void Update()
