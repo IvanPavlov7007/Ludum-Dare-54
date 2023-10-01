@@ -677,7 +677,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 147843125}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.84, y: 0.039, z: -3.835}
+  m_LocalPosition: {x: -0.84, y: 0.039, z: -1.313}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -711,7 +711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4edd04a2626fcc04ca4cbd5532e57985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAmount: 10
+  maxAmount: 100
 --- !u!1 &170946767
 GameObject:
   m_ObjectHideFlags: 0
@@ -4633,16 +4633,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
-  minInitStateTime: 2
-  maxInitStateTime: 4
-  walkTime: 6.5
+  earlyGame:
+    minInitStateTime: 5
+    maxInitStateTime: 120
+    walkTime: 6.5
+    enteringProbability: 0.5
+    doorOpenTime: 3
+    stayTime: 6
+  lateGame:
+    minInitStateTime: 2
+    maxInitStateTime: 4
+    walkTime: 6.5
+    enteringProbability: 0.7
+    doorOpenTime: 3
+    stayTime: 6
+  currentBalancing:
+    minInitStateTime: 0
+    maxInitStateTime: 0
+    walkTime: 0
+    enteringProbability: 0
+    doorOpenTime: 0
+    stayTime: 0
   footStepsSource: {fileID: 715668477}
   footstepsClip: {fileID: 0}
-  enteringProbability: 1
-  doorOpenTime: 3
   doorSource: {fileID: 0}
   doorLockClip: {fileID: 0}
-  stayTime: 6
   DialogWhenCatched: Hey man!!!!!
 --- !u!114 &1373957168
 MonoBehaviour:
@@ -5832,7 +5847,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1998168511
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6553,6 +6568,7 @@ MonoBehaviour:
   hole: {fileID: 147843127}
   winScreen: {fileID: 0}
   loseScreen: {fileID: 0}
+  _p: 1
 --- !u!4 &4634610602856875728
 Transform:
   m_ObjectHideFlags: 0

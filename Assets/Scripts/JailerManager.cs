@@ -8,26 +8,89 @@ public class JailerManager : Singleton<JailerManager>
     GameManager gm;
 
     #region properties
-    [Header("Initiation state")]
-    public float minInitStateTime, maxInitStateTime;
-    [Header("Walking state")]
-    public float walkTime;
+
+
+    [System.Serializable]
+    public struct JailerBalaning
+    {
+        [Header("Initiation state")]
+        public float minInitStateTime, maxInitStateTime;
+        [Header("Walking state")]
+        public float walkTime;
+        [Range(0f, 1f)]
+        public float enteringProbability;
+        [Header("Enter and Stay state")]
+        public float doorOpenTime;
+        public float stayTime;
+    }
+    public class BalanceInterpolator
+    {
+        JailerBalaning early; JailerBalaning late;
+
+        float progress;
+        public void interpolateBalance( JailerManager context)
+        {
+            progress = GameManager.Instance.gameProgress;
+            context.currentBalancing.minInitStateTime = minInitStateTime();
+            context.currentBalancing.maxInitStateTime = maxInitStateTime();
+            context.currentBalancing.walkTime = walkTime();
+            context.currentBalancing.enteringProbability = enteringProbability();
+            context.currentBalancing.doorOpenTime = doorOpenTime();
+            context.currentBalancing.stayTime = stayTime();
+        }
+        public BalanceInterpolator(JailerBalaning early, JailerBalaning late)
+        {
+            this.early = early; this.late = late;
+        }
+        float minInitStateTime()
+        {
+            return Mathf.Lerp(early.minInitStateTime, late.minInitStateTime, progress);
+        }
+
+        float maxInitStateTime()
+        {
+            return Mathf.Lerp(early.maxInitStateTime, late.maxInitStateTime, progress);
+        }
+
+        float walkTime()
+        {
+            return Mathf.Lerp(early.walkTime, late.walkTime, progress);
+        }
+
+        float enteringProbability()
+        {
+            return Mathf.Lerp(early.enteringProbability, late.enteringProbability, progress);
+        }
+
+        float doorOpenTime()
+        {
+            return Mathf.Lerp(early.doorOpenTime, late.doorOpenTime, progress);
+        }
+
+        float stayTime()
+        {
+            return Mathf.Lerp(early.stayTime, late.stayTime, progress);
+        }
+    }
+    public JailerBalaning earlyGame, lateGame;
+    public JailerBalaning currentBalancing;
+
+    BalanceInterpolator balanceInterpolator;
+
+    [Header("Audio")]
     public AudioSource footStepsSource;
     public AudioClip footstepsClip;
-    [Range(0f,1f)]
-    public float enteringProbability;
-    [Header("Enter and Stay state")]
-    public float doorOpenTime;
     public AudioSource doorSource;
     public AudioClip doorLockClip;
-    public float stayTime;
     [Header("Interactions")]
     public string DialogWhenCatched;
     #endregion
 
-
     private void Awake()
     {
+        balanceInterpolator = new BalanceInterpolator(earlyGame, lateGame);
+        currentBalancing = earlyGame;
+
         initiationState = new InitiationState();
         footstepsState = new FootstepsState();
         openingClosingDoorState = new OpeningClosingDoorState();
@@ -46,7 +109,6 @@ public class JailerManager : Singleton<JailerManager>
     JailState currentState;
     private void setState(JailState state)
     {
-        Debug.Log(state);
         currentState = state;
         currentState.SetupState(this);
     }
@@ -69,7 +131,7 @@ public class JailerManager : Singleton<JailerManager>
         Timer initTimer;
         public override void SetupState(JailerManager context)
         {
-            float randomTimeToCome = Random.Range(context.minInitStateTime, context.maxInitStateTime);
+            float randomTimeToCome = Random.Range(context.currentBalancing.minInitStateTime, context.currentBalancing.maxInitStateTime);
             initTimer = new Timer(randomTimeToCome, false);
         }
 
@@ -93,12 +155,12 @@ public class JailerManager : Singleton<JailerManager>
 
         public override void SetupState(JailerManager context)
         {
-            timer = new Timer(context.walkTime);
-            openTheDoor = Random.Range(0f, 1f) <= context.enteringProbability;
+            timer = new Timer(context.currentBalancing.walkTime);
+            openTheDoor = Random.Range(0f, 1f) <= context.currentBalancing.enteringProbability;
             if (approaching)
                 context.footStepsSource.time = 0f;
             else
-                context.footStepsSource.time = context.walkTime;
+                context.footStepsSource.time = context.currentBalancing.walkTime;
 
             context.footStepsSource.Play();
         }
@@ -137,7 +199,7 @@ public class JailerManager : Singleton<JailerManager>
         public bool enterTheRoom;
         public override void SetupState(JailerManager context)
         {
-            timer = new Timer(context.doorOpenTime);
+            timer = new Timer(context.currentBalancing.doorOpenTime);
             if (enterTheRoom)
                 GameManager.Instance.door.Open();
             else
@@ -166,7 +228,7 @@ public class JailerManager : Singleton<JailerManager>
         public override void SetupState(JailerManager context)
         {
             context.ShowJailer();
-            timer = new Timer(context.stayTime);
+            timer = new Timer(context.currentBalancing.stayTime);
         }
 
         public override void UpdateState(JailerManager context)
@@ -210,6 +272,7 @@ public class JailerManager : Singleton<JailerManager>
 
     void Update()
     {
+        balanceInterpolator.interpolateBalance(this);
         currentState.UpdateState(this);
     }
 

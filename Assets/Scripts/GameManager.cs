@@ -17,8 +17,16 @@ public class GameManager : Singleton<GameManager>
     bool paused = false;
     bool gameOver = false;
 
+    [Range(0f,1f)]
+    public float _p;
+    public float gameProgress { get {
+            //return _p; 
+            return hole.progress; 
+        } }
+
     public void Win()
     {
+        Debug.Log("You escape!");
         gameOver = true;
         //winScreen.SetActive(true);
         //Time.timeScale = 0f;
