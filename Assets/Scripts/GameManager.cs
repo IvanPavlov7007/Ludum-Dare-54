@@ -18,6 +18,8 @@ public class GameManager : Singleton<GameManager>
     bool paused = false;
     bool gameOver = false;
 
+    public string endingScene;
+
     [Range(0f,1f)]
     public float _p;
     public float gameProgress { get {
@@ -25,12 +27,19 @@ public class GameManager : Singleton<GameManager>
             return hole.progress; 
         } }
 
+    AsyncOperation asyncOperation;
+
+    private void Start()
+    {
+        asyncOperation = SceneManager.LoadSceneAsync(endingScene);
+        asyncOperation.allowSceneActivation = false;
+    }
+
     public void Win()
     {
         Debug.Log("You escape!");
+        asyncOperation.allowSceneActivation = true;
         gameOver = true;
-        //winScreen.SetActive(true);
-        //Time.timeScale = 0f;
     }
 
     public void Lose(float screenAfter)

@@ -55,7 +55,7 @@ public class Jailer : MonoBehaviour, Punchable
                 aud.Play();
                 aludeTimer = null;
                 spriteRenderer.sprite = runningSprite;
-                transform.Translate(distance.normalized * Time.deltaTime * speed);
+                transform.Translate(distance.normalized * Time.deltaTime * speed, Space.World);
                 transform.forward = distance;
             }
         }

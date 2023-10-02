@@ -21,7 +21,7 @@ public class Door : MonoBehaviour, Punchable
             return;
         played = true;
         aud.clip = (meme);
-        aud.PlayDelayed(2f);
+        //aud.PlayDelayed(2f);
     }
 
 

@@ -7,40 +7,18 @@ using UnityEngine;
 /// </summary>
 public class LoadingScene : MonoBehaviour
 {
-    public float minLoadingTime;
-
-    
-
+    AsyncOperation asyncOperation;
+    public string sceneName;
     void Start()
     {
-        StartCoroutine(LoadScene());
+        asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+        asyncOperation.allowSceneActivation = false;
+    }
+
+    public void Continue()
+    {
+        asyncOperation.allowSceneActivation = true;
     }
 
     public float currentLoadingTime = 0f;
-
-    IEnumerator LoadScene()
-    {
-        //Placeholder process:
-
-        yield return null;
-        if(IntersceneData.exit)
-        {
-            while(currentLoadingTime < minLoadingTime)
-            {
-                yield return new WaitForEndOfFrame();
-                currentLoadingTime += Time.deltaTime;
-            }
-            Application.Quit();
-        }
-
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(IntersceneData.sceneToLoad);
-        asyncOperation.allowSceneActivation = false;
-        while(asyncOperation.progress < 0.9f || currentLoadingTime < minLoadingTime)
-        {
-            yield return new WaitForEndOfFrame();
-            currentLoadingTime += Time.deltaTime;
-        }
-
-        asyncOperation.allowSceneActivation = true;
-    }
 }

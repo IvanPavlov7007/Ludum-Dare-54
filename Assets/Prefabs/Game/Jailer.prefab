@@ -355,10 +355,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitSound: {fileID: 8300000, guid: b49fa8fda6264e0478750ec277520816, type: 3}
-  runningSprite: {fileID: 21300000, guid: 84c10ad21c17de84084340fa40f0ba5e, type: 3}
+  runningSprite: {fileID: 21300000, guid: 70f9a9c1275d38c43b7027ad2b014a52, type: 3}
   prepareAttackSprite: {fileID: 21300000, guid: 70f9a9c1275d38c43b7027ad2b014a52,
     type: 3}
-  attackSprite: {fileID: 21300000, guid: 7282637edd8e1044cb4972d365051c2b, type: 3}
+  attackSprite: {fileID: 21300000, guid: 70f9a9c1275d38c43b7027ad2b014a52, type: 3}
   speed: 2
   judgingTime: 1
   waitBeforeHitTime: 1
