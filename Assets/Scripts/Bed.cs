@@ -7,6 +7,8 @@ public class Bed : MonoBehaviour, Punchable
 {
     public Vector3 closedPos, openedPose;
 
+    public GameObject crutch;
+
     public float cooldownTime = 2f;
     Timer timer;
 
@@ -33,6 +35,8 @@ public class Bed : MonoBehaviour, Punchable
     public void MoveBed()
     {
         isOpen = !isOpen;
+        // filthy crutch
+        crutch.SetActive(!isOpen);
         Tween.Position(transform, isOpen ? openedPose : closedPos, cooldownTime, 0f);
     }
 }

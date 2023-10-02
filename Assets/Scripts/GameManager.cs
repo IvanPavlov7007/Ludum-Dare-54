@@ -33,6 +33,8 @@ public class GameManager : Singleton<GameManager>
     {
         asyncOperation = SceneManager.LoadSceneAsync(endingScene);
         asyncOperation.allowSceneActivation = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void Win()
