@@ -49,6 +49,7 @@ public class PunchController : MonoBehaviour
     {
         cam = GetComponentInChildren<Camera>();
         armsController = GetComponentInChildren<ArmsController>();
+        punchSoundSource.transform.parent = null;
     }
 
     private void Awake()
