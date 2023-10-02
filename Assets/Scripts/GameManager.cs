@@ -33,12 +33,19 @@ public class GameManager : Singleton<GameManager>
         //Time.timeScale = 0f;
     }
 
-    public void Lose()
+    public void Lose(float screenAfter)
     {
         Debug.Log("I've seen your hole, You lost!");
         gameOver = true;
+        Run.After(screenAfter,Restart);
+
         //loseScreen.SetActive(true);
         //Time.timeScale = 0f;
+    }
+
+    void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void Update()
@@ -50,7 +57,7 @@ public class GameManager : Singleton<GameManager>
         }
         if (Input.GetKeyDown(KeyCode.R) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Restart();
             Time.timeScale = 1f;
         }
 
@@ -58,6 +65,14 @@ public class GameManager : Singleton<GameManager>
         {
             paused = !paused;
             Time.timeScale = paused ? 0f : 1f;
+            if(paused)
+            {
+                Player.Instance.TurnOff();
+            }
+            else
+            {
+                Player.Instance.TurnOn();
+            }
         }
     }
 

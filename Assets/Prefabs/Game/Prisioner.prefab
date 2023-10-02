@@ -887,7 +887,8 @@ MonoBehaviour:
   punchParticlesPrefab: {fileID: 4739994534391565810, guid: f854c722a3795d94aae20ecb8037f3c7,
     type: 3}
   punchSoundSource: {fileID: 840762529}
-  hitClip: {fileID: 8300000, guid: fa9e9fbe2442df44f90c45c0d4ad5c78, type: 3}
+  layerSounds: []
+  defaultHitClip: {fileID: 0}
 --- !u!114 &321346042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -919,6 +920,32 @@ MonoBehaviour:
   lerpSpeed: 5
   crouchCameraHight: 0.9
   crouchOverallHight: 1
+--- !u!114 &6754519525851632375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7722326165056450904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55938fb1577dd4ad3af7e994048c86f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5828588432887158110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7722326165056450904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 355402cd4cd2a9849bc3e60c2791aeb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dontDestroyOnLoad: 0
+  cameraContainer: {fileID: 2728387038520870916}
 --- !u!114 &7722326165056450911 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8616685848737228371, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,

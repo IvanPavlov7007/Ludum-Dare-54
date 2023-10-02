@@ -258,7 +258,7 @@ public class JailerManager : Singleton<JailerManager>
         public override void SetupState(JailerManager context)
         {
             Jailer jailer = GameManager.Instance.jailer;
-
+            jailer.AttackPlayer();
         }
 
         public override void UpdateState(JailerManager context)

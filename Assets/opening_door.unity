@@ -4039,7 +4039,7 @@ MonoBehaviour:
   _dontDestroyOnLoad: 0
   earlyGame:
     minInitStateTime: 1
-    maxInitStateTime: 100
+    maxInitStateTime: 5
     walkTime: 6.5
     enteringProbability: 0.68
     doorOpenTime: 3
