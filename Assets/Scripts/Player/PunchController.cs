@@ -42,7 +42,9 @@ public class PunchController : MonoBehaviour
     [SerializeField]
     AudioSource punchSoundSource;
 
-    public AudioClip hitClip;
+    public LayerSound[] layerSounds;
+
+    public AudioClip defaultHitClip;
     private void Start()
     {
         cam = GetComponentInChildren<Camera>();
@@ -88,7 +90,9 @@ public class PunchController : MonoBehaviour
             var particles = Instantiate(punchParticlesPrefab, hit.point, Quaternion.identity);
             particles.transform.forward = hit.normal;
             punchSoundSource.transform.position = hit.point;
-            punchSoundSource.PlayOneShot(hitClip);
+
+            
+            punchSoundSource.PlayOneShot(getLayerClip(hit.collider.gameObject.layer));
             //particles.transform.localScale *= Mathf.Max(hit.distance / punchLength, 0.2f);
             float strength_multiplier = Mathf.Max((punchLength - hit.distance)/ punchLength, 0.1f);
 
@@ -97,5 +101,23 @@ public class PunchController : MonoBehaviour
             if(obj != null)
                 obj.Punch(hit.point, direction.normalized, impulse * strength_multiplier);
         }
+
+        AudioClip getLayerClip(int layer)
+        {
+            var layerSound = System.Array.Find<LayerSound>(layerSounds, x => x.layer == layer);
+            if(layerSound.audioClip != null)
+            {
+                return layerSound.audioClip;
+            }
+            return defaultHitClip;
+        }
     }
+
+    [System.Serializable]
+    public struct LayerSound
+    {
+        public int layer;
+        public AudioClip audioClip;
+    }
+
 }

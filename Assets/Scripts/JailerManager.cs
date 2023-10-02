@@ -257,8 +257,8 @@ public class JailerManager : Singleton<JailerManager>
 
         public override void SetupState(JailerManager context)
         {
-            //You lost!
-            GameManager.Instance.Lose();
+            Jailer jailer = GameManager.Instance.jailer;
+
         }
 
         public override void UpdateState(JailerManager context)

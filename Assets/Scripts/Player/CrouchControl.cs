@@ -19,7 +19,6 @@ public class CrouchControl : MonoBehaviour
     {
         playerCameraRoot = transform.Find("PlayerCameraRoot");
         characterController = GetComponent<CharacterController>();
-
         initCameraHeight = playerCameraRoot.localPosition.y;
         initOverallHeight = characterController.height;
         targetHeight = initCameraHeight;

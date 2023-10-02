@@ -25,7 +25,7 @@ public class RoomChange : MonoBehaviour
 
         wallsMaterial = wallsMeshRenderer.sharedMaterial;
         property = wallsMaterial.GetVector(propertyId);
-
+        HandleHolePunch(hole);
     }
 
     public void HandleHolePunch(Hole hole)
