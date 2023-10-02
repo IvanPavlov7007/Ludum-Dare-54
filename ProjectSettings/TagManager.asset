@@ -13,11 +13,11 @@ TagManager:
   - Water
   - UI
   - Interactive Object
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Iron
+  - Wall
+  - NonPunchable
+  - Bed
+  - Sink
   - 
   - 
   - 

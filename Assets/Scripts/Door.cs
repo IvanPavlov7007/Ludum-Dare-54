@@ -27,12 +27,13 @@ public class Door : MonoBehaviour, Punchable
 
     public void Open()
     {
-        //Tween.LocalRotation(transform, Quaternion.Euler(0f, 90f, 0f), rotationDuration);
+        Tween.LocalRotation(transform, Quaternion.Euler(0f, -90f, 0f), rotationDuration,0f);
         aud.PlayOneShot(openSound);
     }
 
     public void Close()
     {
+        Tween.LocalRotation(transform, Quaternion.Euler(0f, 0f, 0f), rotationDuration,0f);
         aud.PlayOneShot(openSound);
     }
 }
