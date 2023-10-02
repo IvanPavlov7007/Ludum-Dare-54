@@ -52,9 +52,9 @@
                 },
                 {
                     "name": "Crouch",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "52902eae-3ed0-4c38-a22d-d8d5c4a4bb0b",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -262,7 +262,7 @@
                 {
                     "name": "",
                     "id": "c8fcd86e-dcfd-4f88-8e93-b638cdbf3320",
-                    "path": "<Gamepad>/leftTrigger",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",

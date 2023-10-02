@@ -8,6 +8,8 @@ public class CrouchControl : MonoBehaviour
     Transform playerCameraRoot;
     CharacterController characterController;
 
+    public float lerpSpeed;
+
     public float crouchCameraHight;
     public float crouchOverallHight;
 
@@ -20,20 +22,32 @@ public class CrouchControl : MonoBehaviour
 
         initCameraHeight = playerCameraRoot.localPosition.y;
         initOverallHeight = characterController.height;
+        targetHeight = initCameraHeight;
+        currentHeight = targetHeight;
     }
 
+    bool activated;
+    float targetHeight, currentHeight;
+    private void FixedUpdate()
+    {
+        currentHeight = Mathf.Lerp(currentHeight, targetHeight, Time.fixedDeltaTime * lerpSpeed);
+        characterController.height = currentHeight;
+    }
     void OnCrouch(InputValue value)
     {
+        if (value.isPressed)
+            activated = !activated;
+
         Vector3 camPosition = playerCameraRoot.localPosition;
-        if(value.isPressed)
+        if(activated)
         {
             //camPosition.y = crouchCameraHight;
             //playerCameraRoot.localPosition = camPosition;
-            characterController.height = crouchOverallHight;
+            targetHeight = crouchOverallHight;
         }
         else
         {
-            characterController.height = initOverallHeight;
+            targetHeight = initOverallHeight;
         }
     }
 }

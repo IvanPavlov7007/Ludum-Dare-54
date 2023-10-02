@@ -15,11 +15,17 @@ public class Hole : MonoBehaviour, Punchable
 
     Bed _bed;
     Bed bed { get { if (_bed == null) _bed = GameManager.Instance.bed; return _bed; } }
+
+    public event System.Action<Hole> onPunched;
     
     public void Punch(Vector3 position, Vector3 direction, float impulse)
     {
-        if(bed.isOpen)
+        if (bed.isOpen)
+        {
             health.Hit(hitDamage);
+            if (onPunched != null)
+                onPunched(this);
+        }
     }
 
     void Start()
