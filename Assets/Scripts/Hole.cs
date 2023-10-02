@@ -26,6 +26,12 @@ public class Hole : MonoBehaviour, Punchable
     {
         textMesh = GetComponentInChildren<TextMeshPro>();
         health.onDeath += GameManager.Instance.Win;
+        health.onDeath += HideCollider;
+    }
+
+    void HideCollider()
+    {
+        gameObject.SetActive(false);
     }
 
     void Update()

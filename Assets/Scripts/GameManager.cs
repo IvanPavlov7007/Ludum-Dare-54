@@ -12,6 +12,7 @@ public class GameManager : Singleton<GameManager>
     public Bed bed;
     public Jailer jailer;
     public Hole hole;
+    public RoomChange roomChange;
 
     public GameObject winScreen, loseScreen;
     bool paused = false;
@@ -43,6 +44,10 @@ public class GameManager : Singleton<GameManager>
     void Update()
     {
         _p = gameProgress;
+        if(gameProgress == 1f)
+        {
+            roomChange.BreakRoom();
+        }
         if (Input.GetKeyDown(KeyCode.R) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);

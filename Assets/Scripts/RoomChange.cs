@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class RoomChange : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public MeshCollider wholeWallCollider;
+    public MeshCollider brokenWallCollider;
+
+    Hole hole;
+
+    private void Start()
     {
-        
+        hole = GameManager.Instance.hole;
+        wholeWallCollider.enabled = true;
+        brokenWallCollider.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void BreakRoom()
     {
-        
+        wholeWallCollider.enabled = false;
+        brokenWallCollider.enabled = true;
     }
 }
